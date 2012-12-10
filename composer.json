@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-0": {
-            "": "lib/"
+            "DbWrapper": "lib/"
         }
     },
     "minimum-stability": "dev"
