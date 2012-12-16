@@ -41,12 +41,13 @@ class Db {
      * @param   string  Name of the connection
      * @param   array   The config array for the connection
      * @param   bool    Whether to make this the default connection
-     * @return  void
+     * @return  Illuminate\Database\Connectors\Connection
      */
     public static function makeConnection($name, array $config, $default = false) {
         self::setupResolverAndFactory();
 
-        self::$resolver->addConnection($name, self::$factory->make($config));
+        $conn = self::$factory->make($config);
+        self::$resolver->addConnection($name, $conn);
 
         if ($default) {
             self::$resolver->setDefaultConnection($name);
@@ -56,6 +57,8 @@ class Db {
             Model::setConnectionResolver(self::$resolver);
             self::$modelInitialized = true;
         }
+
+        return $conn;
     }
 
     /**
