@@ -6,7 +6,7 @@
  * @author  Dan Horrigan <dan@dhorrigan.com>
  */
 
-namespace DbWrapper;
+namespace Capsule\Database;
 
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,7 @@ use Illuminate\Database\DatabaseManager;
 /**
  * A simple wrapper class for the Laravel Database package.
  */
-class Db {
+class Connection {
 
     /**
      * @var ConnectionResolver  Hold the ConnectionResolver object.
@@ -43,7 +43,7 @@ class Db {
      * @param   bool    Whether to make this the default connection
      * @return  Illuminate\Database\Connectors\Connection
      */
-    public static function makeConnection($name, array $config, $default = false) {
+    public static function make($name, array $config, $default = false) {
         self::setupResolverAndFactory();
 
         $conn = self::$factory->make($config);
@@ -62,14 +62,15 @@ class Db {
     }
 
     /**
-     * Passes calls through to the Connection object.
+     * Gets a Connection from the resolver.  If $name is NULL
+     * then it returns the default Connection.
      *
-     * @param   string  The method name
-     * @param   array   The method parameters sent
-     * @return  mixed   The result of the call
+     * @param   string  The connection name
+     * @return  Illuminate\Database\Connection
      */
-    public static function __callStatic($method, $parameters) {
-        return call_user_func_array(array(self::$resolver->connection(), $method), $parameters);
+    public static function get($name = null)
+    {
+        return static::$resolver->connection($name);
     }
 
     /**

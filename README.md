@@ -1,14 +1,18 @@
-# Laravel 4 Database Package Wrapper
+# Laravel 4 Package Wrapper
 
-A simple wrapper class for the Laravel Database package.  This is only to be used outside of a Laravel application.
+A simple wrapper package for the Laravel packages.  This is only to be used outside of a Laravel application.
+
+## Packages Covered
+
+Only `database` for now, more to come.
 
 ## Usage
 
 ### Setup
 
-Before you can make any Db calls or use any Eloquent Models, you must first make a connection using the `Db::makeConnection` method.
+Before you can make any `Capusle\DB` calls or use any Eloquent Models, you must first make a connection using the `Capsule\Database\Connection::make` method.
 
-    DbWrapper\Db::makeConnection('main', [
+    Capsule\Database\Connection::make('main', [
         'driver'    => 'mysql',
         'host'      => 'localhost',
         'database'  => '',
@@ -18,18 +22,18 @@ Before you can make any Db calls or use any Eloquent Models, you must first make
         'prefix'    => '',
     ], true);
 
-The `makeConnection` method has the following prototype:
+The `make` method has the following prototype:
 
-    public static function makeConnection($name, array $config, $default = false)
+    public static function make($name, array $config, $default = false)
 
 ### Using the Query Builder
 
 You can use the Query Builder just as you would using the `Db` Facade in Laravel 4:
 
-    DbWrapper\Db::table('foo')->select('*')->get()
+    Capsule\DB::table('foo')->select('*')->get()
 
 **Note: You can `use DbWrapper` in your PHP files so you can simply use `Db` without the namespace.**
 
 ### Eloquent Models
 
-You can extend the `Illuminate\Database\Eloquent\Model` class and use the Models as you normally would.  When `makeConnection` is called it also sets up Eloquent for you.
+You can extend the `Illuminate\Database\Eloquent\Model` class and use the Models as you normally would.  When `Capsule\Database\Connection::make` is called it also sets up Eloquent for you.
