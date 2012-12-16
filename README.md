@@ -6,9 +6,9 @@ A simple wrapper package for the Laravel packages.  This is only to be used outs
 
 Only `database` for now, more to come.
 
-## Usage
+## Database Usage
 
-### Setup
+### Connecting
 
 Before you can make any `Capusle\DB` calls or use any Eloquent Models, you must first make a connection using the `Capsule\Database\Connection::make` method.
 
@@ -37,3 +37,7 @@ You can use the Query Builder just as you would using the `Db` Facade in Laravel
 ### Eloquent Models
 
 You can extend the `Illuminate\Database\Eloquent\Model` class and use the Models as you normally would.  When `Capsule\Database\Connection::make` is called it also sets up Eloquent for you.
+
+### Schema Builder
+
+Capsule provides a nice `Capsule\Schema` class, which acts exactly like the `Schema` Facade in Laraval.
